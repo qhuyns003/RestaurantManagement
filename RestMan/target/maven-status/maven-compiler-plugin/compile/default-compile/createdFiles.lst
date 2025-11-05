@@ -1,0 +1,5 @@
+com\restman\RestManApplication.class
+com\restman\servlet\StaticResourceServlet.class
+com\restman\model\Dish.class
+com\restman\dao\DishDAO.class
+com\restman\servlet\DishServlet.class
