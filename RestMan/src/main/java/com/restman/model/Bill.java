@@ -7,6 +7,7 @@ public class Bill implements Serializable {
     private String id;
     private LocalDateTime dateTime;
     private float total;
+    private boolean status;
     private String code;
     private float discount;
     private String waitStaff;

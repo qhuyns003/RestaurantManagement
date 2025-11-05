@@ -9,6 +9,6 @@ import java.io.IOException;
 public class StatisticsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/jsp/ViewStatisticsFrm.jsp").forward(req, resp);
+        req.getRequestDispatcher("/ViewStatisticsFrm.jsp").forward(req, resp);
     }
 }

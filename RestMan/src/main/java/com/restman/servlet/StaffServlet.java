@@ -16,7 +16,7 @@ public class StaffServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/jsp/LoginFrm.jsp").forward(req, resp);
+        req.getRequestDispatcher("/LoginFrm.jsp").forward(req, resp);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class StaffServlet extends HttpServlet {
             resp.sendRedirect("/manager?staffName=" + encodedName);
         } else {
             req.setAttribute("error", "Sai tên đăng nhập hoặc mật khẩu!");
-            req.getRequestDispatcher("/WEB-INF/jsp/LoginFrm.jsp").forward(req, resp);
+            req.getRequestDispatcher("/LoginFrm.jsp").forward(req, resp);
         }
     }
 }

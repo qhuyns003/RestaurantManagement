@@ -43,7 +43,7 @@ public class BillServlet extends HttpServlet {
                 } else {
                     // Nếu là request thông thường, forward đến JSP (backward compatibility)
                     req.setAttribute("billList", billList);
-                    req.getRequestDispatcher("/WEB-INF/jsp/ViewHistoryBillFrm.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/ViewHistoryBillFrm.jsp").forward(req, resp);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -59,7 +59,7 @@ public class BillServlet extends HttpServlet {
             
             if (bill != null) {
                 req.setAttribute("bill", bill);
-                req.getRequestDispatcher("/WEB-INF/jsp/ViewBillFrm.jsp").forward(req, resp);
+                req.getRequestDispatcher("/ViewBillFrm.jsp").forward(req, resp);
             } else {
                 resp.sendRedirect("/");
             }

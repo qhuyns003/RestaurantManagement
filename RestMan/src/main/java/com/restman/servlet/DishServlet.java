@@ -23,7 +23,7 @@ public class DishServlet extends HttpServlet {
         
         if ("/".equals(path) || "/home".equals(path)) {
             // Home page
-            request.getRequestDispatcher("/WEB-INF/jsp/HomePageFrm.jsp").forward(request, response);
+            request.getRequestDispatcher("/HomePageFrm.jsp").forward(request, response);
             return;
         }
         

@@ -20,6 +20,6 @@ public class ManagerServlet extends HttpServlet {
             req.setAttribute("staffName", staffName);
         }
         
-        req.getRequestDispatcher("/WEB-INF/jsp/HomePageManagerFrm.jsp").forward(req, resp);
+        req.getRequestDispatcher("/HomePageManagerFrm.jsp").forward(req, resp);
     }
 }
