@@ -230,7 +230,6 @@
         </div>
         
         <script>
-        // Bước 20: ViewHistoryBillFrm.jsp gọi BillServlet để lấy danh sách hóa đơn
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const customerId = urlParams.get('customerId');
@@ -285,7 +284,7 @@
                             const formattedTotal = formatCurrency(bill.total);
                             const formattedDate = formatDateTime(bill.dateTime);
                             const tableName = bill.table && bill.table.number ? 'Bàn ' + bill.table.number : '';
-                            const billCode = bill.code || bill.id; // Lấy mã HD từ trường code
+                            const billCode = bill.code || bill.id; 
                             
                             tableHTML += '<tr>';
                             tableHTML += '<td>' + (index + 1) + '</td>';
@@ -336,16 +335,13 @@
         function formatDateTime(dateTimeStr) {
             if (!dateTimeStr) return '';
             try {
-                // dateTimeStr format: "2025-11-02T00:00" hoặc "2025-11-02T00:00:00"
-                // Thêm :00 nếu thiếu giây
                 let fullDateTimeStr = dateTimeStr;
-                if (dateTimeStr.length === 16) { // Format: "2025-11-02T00:00"
+                if (dateTimeStr.length === 16) { 
                     fullDateTimeStr = dateTimeStr + ':00';
                 }
                 
                 const date = new Date(fullDateTimeStr);
                 
-                // Kiểm tra date hợp lệ
                 if (isNaN(date.getTime())) {
                     console.error('Invalid date:', dateTimeStr);
                     return dateTimeStr;

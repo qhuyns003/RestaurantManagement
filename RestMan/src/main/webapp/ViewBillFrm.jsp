@@ -272,7 +272,6 @@
             document.getElementById('totalValue').textContent = formatNumber(total);
         }
         
-        // Bước 41-49: ViewBillFrm.jsp gọi DetailDishBillServlet
         function loadDishList() {
             const billId = '<c:out value="${bill.id}"/>';
             console.log('Loading dishes for billId:', billId);
@@ -288,7 +287,7 @@
                 .then(dishList => {
                     console.log('Dish list:', dishList);
                     const container = document.getElementById('dishListContainer');
-                    dishTotal = 0; // Reset
+                    dishTotal = 0; 
                     
                     if (dishList.length === 0) {
                         container.innerHTML = '<div class="no-data">📭 Không có món ăn nào trong hóa đơn này</div>';
@@ -298,7 +297,7 @@
                         html += '<tbody>';
                         dishList.forEach((dish, index) => {
                             const subtotal = dish.quantity * dish.price;
-                            dishTotal += subtotal; // Cộng vào tổng
+                            dishTotal += subtotal; 
                             html += `<tr>
                                 <td>\${index + 1}</td>
                                 <td>\${dish.dish.name}</td>
@@ -310,7 +309,7 @@
                         html += '</tbody></table></div>';
                         container.innerHTML = html;
                     }
-                    updateTotalAmount(); // Cập nhật tổng tiền
+                    updateTotalAmount(); 
                 })
                 .catch(error => {
                     console.error('Error loading dish list:', error);
@@ -319,7 +318,6 @@
                 });
         }
         
-        // Bước 50-58: ViewBillFrm.jsp gọi DetailComboBillServlet
         function loadComboList() {
             const billId = '<c:out value="${bill.id}"/>';
             console.log('Loading combos for billId:', billId);
@@ -335,7 +333,7 @@
                 .then(comboList => {
                     console.log('Combo list:', comboList);
                     const container = document.getElementById('comboListContainer');
-                    comboTotal = 0; // Reset
+                    comboTotal = 0; 
                     
                     if (comboList.length === 0) {
                         container.innerHTML = '<div class="no-data">📭 Không có combo nào trong hóa đơn này</div>';
@@ -345,7 +343,7 @@
                         html += '<tbody>';
                         comboList.forEach((combo, index) => {
                             const subtotal = combo.quantity * combo.price;
-                            comboTotal += subtotal; // Cộng vào tổng
+                            comboTotal += subtotal; 
                             html += `<tr>
                                 <td>\${index + 1}</td>
                                 <td>\${combo.combo.name}</td>
@@ -357,7 +355,7 @@
                         html += '</tbody></table></div>';
                         container.innerHTML = html;
                     }
-                    updateTotalAmount(); // Cập nhật tổng tiền
+                    updateTotalAmount(); 
                 })
                 .catch(error => {
                     console.error('Error loading combo list:', error);
@@ -370,7 +368,6 @@
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
         
-        // Tự động gọi khi trang load xong
         window.addEventListener('DOMContentLoaded', function() {
             loadDishList();
             loadComboList();

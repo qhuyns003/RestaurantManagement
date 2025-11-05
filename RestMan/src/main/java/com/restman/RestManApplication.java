@@ -3,7 +3,6 @@
 
 package com.restman;
 
-import com.restman.servlet.StatisticsServlet;
 import com.restman.servlet.ManagerServlet;
 import com.restman.servlet.DetailDishBillServlet;
 import com.restman.servlet.DetailComboBillServlet;
@@ -17,11 +16,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.restman.servlet.CustomerRevenueStatisticsServlet;
 import com.restman.servlet.BillServlet;
-
-
-
 import com.restman.servlet.DishServlet;
-import com.restman.servlet.StaticResourceServlet;
 import com.restman.servlet.StaffServlet;
 
 @SpringBootApplication
@@ -60,32 +55,12 @@ public class RestManApplication extends SpringBootServletInitializer implements 
         registration.setLoadOnStartup(1);
         return registration;
     }
-    
-    @Bean
-    public ServletRegistrationBean<StaticResourceServlet> staticServletRegistration() {
-        ServletRegistrationBean<StaticResourceServlet> registration = new ServletRegistrationBean<>(
-                new StaticResourceServlet(), "/css/*");
-        registration.setName("staticResourceServlet");
-        registration.setLoadOnStartup(1);
-        return registration;
-    }
-
 
     @Bean
     public ServletRegistrationBean<ManagerServlet> managerServletRegistration() {
         ServletRegistrationBean<ManagerServlet> registration = new ServletRegistrationBean<>(
                 new ManagerServlet(), "/manager");
         registration.setName("managerServlet");
-        registration.setLoadOnStartup(1);
-        return registration;
-    }
-
-
-    @Bean
-    public ServletRegistrationBean<StatisticsServlet> statisticsServletRegistration() {
-        ServletRegistrationBean<StatisticsServlet> registration = new ServletRegistrationBean<>(
-                new StatisticsServlet(), "/statistics");
-        registration.setName("statisticsServlet");
         registration.setLoadOnStartup(1);
         return registration;
     }
