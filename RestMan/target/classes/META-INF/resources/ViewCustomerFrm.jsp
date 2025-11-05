@@ -199,7 +199,6 @@
             flex-wrap: wrap;
         }
         
-        /* Responsive Design */
         @media (max-width: 768px) {
             .container { padding: 20px 10px; }
             .form-row { flex-direction: column; }

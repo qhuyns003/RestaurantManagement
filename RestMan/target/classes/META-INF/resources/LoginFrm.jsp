@@ -87,7 +87,6 @@
             border: 1px solid rgba(229, 62, 62, 0.2);
         }
         
-        /* Responsive Design */
         @media (max-width: 768px) {
             .login-container { 
                 padding: 30px 25px; 
