@@ -22,17 +22,15 @@ public class DishServlet extends HttpServlet {
         String action = request.getParameter("action");
         
         if ("/".equals(path) || "/home".equals(path)) {
-            // Home page
+            
             request.getRequestDispatcher("/HomePageFrm.jsp").forward(request, response);
             return;
         }
         
         if ("/dish".equals(path)) {
             if (action == null) {
-                // Không dùng nữa - HomePageFrm gọi trực tiếp SearchDishesFrm.jsp
                 request.getRequestDispatcher("/SearchDishesFrm.jsp").forward(request, response);
             } else if ("search".equals(action)) {
-                // Bước 5-13: SearchDishesFrm.jsp gọi DishServlet search
                 String dishName = request.getParameter("dishName");
                 if (dishName != null && !dishName.trim().isEmpty()) {
                     List<Dish> list = dishDAO.searchByName(dishName);
@@ -41,7 +39,6 @@ public class DishServlet extends HttpServlet {
                 }
                 request.getRequestDispatcher("/SearchDishesFrm.jsp").forward(request, response);
             } else if ("get-detail-json".equals(action)) {
-                // Bước 17-25: DetailDishInfoFrm.jsp gọi servlet lấy JSON
                 String dishId = request.getParameter("dishId");
                 Dish dish = dishDAO.getDetailDishInfo(dishId);
                 

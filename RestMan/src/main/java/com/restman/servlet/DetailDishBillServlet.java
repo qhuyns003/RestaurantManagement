@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-/**
- * Bước 41-49: ViewBillFrm.jsp gọi DetailDishBillServlet để lấy danh sách món ăn
- */
+
 public class DetailDishBillServlet extends HttpServlet {
     
     @Override
@@ -28,17 +26,14 @@ public class DetailDishBillServlet extends HttpServlet {
         }
         
         try {
-            // Bước 43-48: doGet() gọi DetailDishBillDAO
             DetailDishBillDAO detailDishBillDAO = new DetailDishBillDAO();
             List<DetailDishBill> dishList = detailDishBillDAO.getDetailDishBill(billId);
             
-            // Bước 49: Trả kết quả về cho ViewBillFrm.jsp dưới dạng JSON
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             
             PrintWriter out = response.getWriter();
             
-            // Tạo JSON thủ công để tránh circular reference
             StringBuilder json = new StringBuilder("[");
             for (int i = 0; i < dishList.size(); i++) {
                 DetailDishBill item = dishList.get(i);

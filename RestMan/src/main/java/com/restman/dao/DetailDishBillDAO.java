@@ -15,20 +15,17 @@ public class DetailDishBillDAO extends DAO {
             ps.setString(1, billId);
             try (java.sql.ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    // Tạo đối tượng Dish
                     com.restman.model.Dish dish = new com.restman.model.Dish();
                     dish.setId(rs.getString("dishId"));
                     dish.setName(rs.getString("dishName"));
                     dish.setDescription(rs.getString("description"));
                     dish.setPrice(rs.getFloat("dishPrice"));
                     
-                    // Tạo đối tượng DetailDishBill
                     com.restman.model.DetailDishBill detailDishBill = new com.restman.model.DetailDishBill();
                     detailDishBill.setId(rs.getString("id"));
                     detailDishBill.setQuantity(rs.getInt("quantity"));
                     detailDishBill.setPrice(rs.getFloat("price"));
                     detailDishBill.setDish(dish);
-                    // Bill object không cần thiết ở đây
                     result.add(detailDishBill);
                 }
             }

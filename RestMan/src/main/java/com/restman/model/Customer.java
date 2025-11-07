@@ -13,7 +13,6 @@ public class Customer implements Serializable {
     private String phone;
     private String address;
 
-    // Getters, setters, constructors
     public Customer() {}
     public Customer(String id, String username, String password, String fullname, LocalDateTime dob, String email, String phone, String address) {
         this.id = id;

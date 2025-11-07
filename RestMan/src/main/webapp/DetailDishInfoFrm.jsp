@@ -157,7 +157,6 @@
     </div>
     
     <script>
-        // Bước 17-25: DetailDishInfoFrm.jsp gọi DishServlet
         function loadDishDetail() {
             const urlParams = new URLSearchParams(window.location.search);
             const dishId = urlParams.get('dishId');
@@ -171,7 +170,6 @@
             fetch('/dish?action=get-detail-json&dishId=' + dishId)
                 .then(response => response.json())
                 .then(dish => {
-                    // Bước 26: Hiển thị thông tin món ăn
                     if (dish && dish.id) {
                         let html = '<div class="dish-card">';
                         html += '<div class="dish-name">🍜 ' + dish.name + '</div>';

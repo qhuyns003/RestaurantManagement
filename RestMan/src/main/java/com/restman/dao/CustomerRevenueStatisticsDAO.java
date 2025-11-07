@@ -8,7 +8,6 @@ public class CustomerRevenueStatisticsDAO extends DAO {
     public List<CustomerRevenueStatistics> getRevenueCustomer(LocalDateTime start, LocalDateTime end) {
         List<CustomerRevenueStatistics> result = new java.util.ArrayList<>();
         
-        // Tính tổng doanh thu từ DetailDishBill và DetailComboBill trừ tổng discount
         String sql = "SELECT c.id, c.username, c.password, c.fullname, c.dob, c.email, c.phone, c.address, " +
             "(COALESCE(SUM(ddb.quantity * ddb.price), 0) + COALESCE(SUM(dcb.quantity * dcb.price), 0) - COALESCE(SUM(b.discount), 0)) as totalRevenue " +
             "FROM customer c " +

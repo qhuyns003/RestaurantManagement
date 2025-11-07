@@ -20,13 +20,12 @@ public class Table implements Serializable {
     public int getMaxPeople() { return maxPeople; }
     public void setMaxPeople(int maxPeople) { this.maxPeople = maxPeople; }
     
-    // For backward compatibility with existing code
     public String getName() { return String.valueOf(number); }
     public void setName(String name) { 
         try { 
             this.number = Integer.parseInt(name); 
         } catch (NumberFormatException e) { 
-            // Handle error or ignore 
+            
         }
     }
     public int getCapacity() { return maxPeople; }

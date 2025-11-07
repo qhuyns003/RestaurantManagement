@@ -158,7 +158,6 @@
         </div>
         
         <div class="menu-grid">
-            <%-- Bước 5: ViewStatisticsFrm.jsp gọi ViewCustomerFrm.jsp --%>
             <a href="/ViewCustomerFrm.jsp" class="menu-card customer-card">
                 <span class="icon">👥</span>
                 <div class="title">Thống kê khách hàng</div>

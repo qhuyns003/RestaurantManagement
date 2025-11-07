@@ -12,10 +12,9 @@ import java.io.IOException;
 public class ManagerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Lấy tên staff từ URL parameter
+        
         String staffName = req.getParameter("staffName");
         
-        // Truyền thông tin staff sang JSP
         if (staffName != null && !staffName.trim().isEmpty()) {
             req.setAttribute("staffName", staffName);
         }

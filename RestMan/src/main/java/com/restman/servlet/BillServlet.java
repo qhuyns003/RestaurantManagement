@@ -16,16 +16,13 @@ public class BillServlet extends HttpServlet {
         com.restman.dao.BillDAO dao = new com.restman.dao.BillDAO();
         
         if (customerId != null) {
-            // Bước 20: ViewHistoryBillFrm.jsp gọi BillServlet
             try {
                 java.util.List<com.restman.model.Bill> billList = dao.getHistoryBill(customerId);
                 
-                // Nếu request yêu cầu JSON (từ AJAX), trả về JSON
                 if (acceptHeader != null && acceptHeader.contains("application/json")) {
                     resp.setContentType("application/json");
                     resp.setCharacterEncoding("UTF-8");
                     
-                    // Tạo Gson với TypeAdapter cho LocalDateTime
                     com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
                     gsonBuilder.registerTypeAdapter(java.time.LocalDateTime.class, 
                         new com.google.gson.JsonSerializer<java.time.LocalDateTime>() {
@@ -41,7 +38,6 @@ public class BillServlet extends HttpServlet {
                     String json = gson.toJson(billList);
                     resp.getWriter().write(json);
                 } else {
-                    // Nếu là request thông thường, forward đến JSP (backward compatibility)
                     req.setAttribute("billList", billList);
                     req.getRequestDispatcher("/ViewHistoryBillFrm.jsp").forward(req, resp);
                 }
@@ -53,8 +49,6 @@ public class BillServlet extends HttpServlet {
                 resp.getWriter().write("{\"error\": \"" + e.getMessage() + "\"}");
             }
         } else if (billId != null) {
-            // Bước 32-40: Xử lý bill-detail - CHỈ lấy thông tin Bill
-            // ViewBillFrm.jsp sẽ tự gọi DetailDishBillServlet và DetailComboBillServlet
             com.restman.model.Bill bill = dao.getDetailBill(billId);
             
             if (bill != null) {

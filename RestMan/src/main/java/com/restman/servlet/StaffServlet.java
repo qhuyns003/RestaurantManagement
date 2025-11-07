@@ -27,7 +27,6 @@ public class StaffServlet extends HttpServlet {
         if (staff != null) {
             HttpSession session = req.getSession();
             session.setAttribute("staff", staff);
-            // Redirect với tên staff trong URL
             String encodedName = java.net.URLEncoder.encode(staff.getFullname(), "UTF-8");
             resp.sendRedirect("/manager?staffName=" + encodedName);
         } else {

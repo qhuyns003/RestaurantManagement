@@ -24,10 +24,8 @@ public class BillDAO extends DAO {
                         rs.getInt("tableCapacity")
                     );
                     
-                    // Tính total từ DetailDishBill và DetailComboBill
                     float calculatedTotal = 0;
 
-                    // Tính tổng từ món ăn (DetailDishBill)
                     String dishSql = "SELECT SUM(quantity * price) as dishTotal FROM DetailDishBill WHERE billId = ?";
                     try (java.sql.PreparedStatement ps2 = con.prepareStatement(dishSql)) {
                         ps2.setString(1, billId);
@@ -40,7 +38,6 @@ public class BillDAO extends DAO {
                         e.printStackTrace();
                     }
 
-                    // Tính tổng từ combo (DetailComboBill)
                     String comboSql = "SELECT SUM(quantity * price) as comboTotal FROM DetailComboBill WHERE billId = ?";
                     try (java.sql.PreparedStatement ps2 = con.prepareStatement(comboSql)) {
                         ps2.setString(1, billId);
@@ -57,11 +54,11 @@ public class BillDAO extends DAO {
                     com.restman.model.Bill bill = new com.restman.model.Bill(
                         billId,
                         rs.getTimestamp("datetime") != null ? rs.getTimestamp("datetime").toLocalDateTime() : null,
-                        calculatedTotal- rs.getFloat("discount"), // Dùng total tính được thay vì lấy từ DB
+                        calculatedTotal- rs.getFloat("discount"), 
                         rs.getString("code"),
                         rs.getFloat("discount"),
                         rs.getString("waitStaff"),
-                        null, // customer object không cần thiết ở đây
+                        null, 
                         table
                     );
                     result.add(bill);

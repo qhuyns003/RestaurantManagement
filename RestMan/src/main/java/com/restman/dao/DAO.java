@@ -9,7 +9,7 @@ public class DAO {
 
     public DAO() {
         try {
-            // Thay đổi thông tin kết nối cho phù hợp với CSDL của bạn
+            
             String url = "jdbc:mysql://localhost:3306/restman";
             String user = "root";
             String password = "root";

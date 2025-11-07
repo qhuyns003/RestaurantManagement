@@ -17,7 +17,6 @@ public class DishDAO extends DAO {
         super();
     }
 
-    // Search dishes by name (case-insensitive, contains)
     public List<Dish> searchByName(String key) {
         if (key == null || key.trim().isEmpty()) {
             return Collections.emptyList();

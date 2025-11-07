@@ -15,20 +15,18 @@ public class DetailComboBillDAO extends DAO {
             ps.setString(1, billId);
             try (java.sql.ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    // Tạo đối tượng Combo
+                    
                     com.restman.model.Combo combo = new com.restman.model.Combo();
                     combo.setId(rs.getString("comboId"));
                     combo.setName(rs.getString("comboName"));
                     combo.setDescription(rs.getString("description"));
                     combo.setPrice(rs.getFloat("comboPrice"));
                     
-                    // Tạo đối tượng DetailComboBill
                     com.restman.model.DetailComboBill detailComboBill = new com.restman.model.DetailComboBill();
                     detailComboBill.setId(rs.getString("id"));
                     detailComboBill.setQuantity(rs.getInt("quantity"));
                     detailComboBill.setPrice(rs.getFloat("price"));
                     detailComboBill.setCombo(combo);
-                    // Bill object không cần thiết ở đây
                     result.add(detailComboBill);
                 }
             }

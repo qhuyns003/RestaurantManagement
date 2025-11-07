@@ -11,9 +11,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-/**
- * Bước 50-58: ViewBillFrm.jsp gọi DetailComboBillServlet để lấy danh sách combo
- */
 public class DetailComboBillServlet extends HttpServlet {
     
     @Override
@@ -28,17 +25,14 @@ public class DetailComboBillServlet extends HttpServlet {
         }
         
         try {
-            // Bước 52-57: doGet() gọi DetailComboBillDAO
             DetailComboBillDAO detailComboBillDAO = new DetailComboBillDAO();
             List<DetailComboBill> comboList = detailComboBillDAO.getDetailComboBill(billId);
             
-            // Bước 58: Trả kết quả về cho ViewBillFrm.jsp dưới dạng JSON
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             
             PrintWriter out = response.getWriter();
             
-            // Tạo JSON thủ công để tránh circular reference
             StringBuilder json = new StringBuilder("[");
             for (int i = 0; i < comboList.size(); i++) {
                 DetailComboBill item = comboList.get(i);
