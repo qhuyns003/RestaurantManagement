@@ -1,33 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
 
-    <display-name>RestMan Dish Module</display-name>
+    <display-name>RestMan Restaurant Management</display-name>
 
+    <!-- DishServlet -->
     <servlet>
         <servlet-name>DishServlet</servlet-name>
         <servlet-class>com.restman.servlet.DishServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>DishServlet</servlet-name>
         <url-pattern>/dish</url-pattern>
     </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>DishServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>DishServlet</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
 
+    <!-- StaffServlet -->
+    <servlet>
+        <servlet-name>StaffServlet</servlet-name>
+        <servlet-class>com.restman.servlet.StaffServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StaffServlet</servlet-name>
+        <url-pattern>/staff-login</url-pattern>
+    </servlet-mapping>
+
+    <!-- ManagerServlet -->
+    <servlet>
+        <servlet-name>ManagerServlet</servlet-name>
+        <servlet-class>com.restman.servlet.ManagerServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManagerServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <!-- BillServlet -->
+    <servlet>
+        <servlet-name>BillServlet</servlet-name>
+        <servlet-class>com.restman.servlet.BillServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BillServlet</servlet-name>
+        <url-pattern>/history-bill</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BillServlet</servlet-name>
+        <url-pattern>/bill-detail</url-pattern>
+    </servlet-mapping>
+
+    <!-- DetailDishBillServlet -->
+    <servlet>
+        <servlet-name>DetailDishBillServlet</servlet-name>
+        <servlet-class>com.restman.servlet.DetailDishBillServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DetailDishBillServlet</servlet-name>
+        <url-pattern>/detail-dish-bill</url-pattern>
+    </servlet-mapping>
+
+    <!-- DetailComboBillServlet -->
+    <servlet>
+        <servlet-name>DetailComboBillServlet</servlet-name>
+        <servlet-class>com.restman.servlet.DetailComboBillServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DetailComboBillServlet</servlet-name>
+        <url-pattern>/detail-combo-bill</url-pattern>
+    </servlet-mapping>
+
+    <!-- CustomerRevenueStatisticsServlet -->
+    <servlet>
+        <servlet-name>CustomerRevenueStatisticsServlet</servlet-name>
+        <servlet-class>com.restman.servlet.CustomerRevenueStatisticsServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerRevenueStatisticsServlet</servlet-name>
+        <url-pattern>/statistics/customer</url-pattern>
+    </servlet-mapping>
+
+    <!-- Welcome files -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
+        <welcome-file>HomePageFrm.jsp</welcome-file>
     </welcome-file-list>
+
+    <!-- Session timeout (30 minutes) -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 
 </web-app>

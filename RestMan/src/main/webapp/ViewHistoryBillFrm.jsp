@@ -230,6 +230,8 @@
         </div>
         
         <script>
+        const contextPath = '${pageContext.request.contextPath}';
+        
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const customerId = urlParams.get('customerId');
@@ -237,7 +239,7 @@
             const endDate = urlParams.get('endDate');
             
             if (customerId) {
-                let url = '/history-bill?customerId=' + encodeURIComponent(customerId);
+                let url = contextPath + '/history-bill?customerId=' + encodeURIComponent(customerId);
                 if (startDate && endDate) {
                     url += '&startDate=' + encodeURIComponent(startDate) + '&endDate=' + encodeURIComponent(endDate);
                 }
@@ -293,7 +295,7 @@
                             tableHTML += '<td class="total-amount">' + formattedTotal + '₫</td>';
                             tableHTML += '<td>' + tableName + '</td>';
                             tableHTML += '<td>';
-                            tableHTML += '<form action="/bill-detail" method="get" style="margin:0;">';
+                            tableHTML += '<form action="' + contextPath + '/bill-detail" method="get" style="margin:0;">';
                             tableHTML += '<input type="hidden" name="billId" value="' + bill.id + '" />';
                             tableHTML += '<button type="submit" class="detail-btn">🔍 Xem chi tiết</button>';
                             tableHTML += '</form>';
@@ -362,7 +364,7 @@
         
         <div class="center">
             <div class="button-row">
-                <a href="/ViewCustomerFrm.jsp" class="back-btn">⬅️ Quay lại</a>
+                <a href="${pageContext.request.contextPath}/ViewCustomerFrm.jsp" class="back-btn">⬅️ Quay lại</a>
             </div>
         </div>
     </div>

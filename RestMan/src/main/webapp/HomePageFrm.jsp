@@ -137,7 +137,7 @@
         
         <div class="menu-grid">
             <%-- Bước 2: HomePageFrm.jsp gọi SearchDishesFrm.jsp --%>
-            <a href="/SearchDishesFrm.jsp" class="menu-card">
+            <a href="${pageContext.request.contextPath}/dish" class="menu-card">
                 <span class="icon">🔍</span>
                 <div class="title">Tìm kiếm món ăn</div>
                 <div class="description">Khám phá thực đơn phong phú với nhiều món ngon</div>
@@ -149,7 +149,7 @@
                 <div class="description">Đặt bàn trước để có trải nghiệm tốt nhất</div>
             </a>
             
-            <a href="/staff-login" class="menu-card">
+            <a href="${pageContext.request.contextPath}/staff-login" class="menu-card">
                 <span class="icon">👨‍💼</span>
                 <div class="title">Đăng nhập nhân viên</div>
                 <div class="description">Dành cho nhân viên quản lý hệ thống</div>

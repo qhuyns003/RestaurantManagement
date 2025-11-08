@@ -229,7 +229,7 @@
     
     <div class="container">
         <div class="search-card">
-            <form action="/statistics/customer" method="get">
+            <form action="${pageContext.request.contextPath}/statistics/customer" method="get">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="startDate">📅 Từ ngày:</label>
@@ -280,7 +280,7 @@
                                             </td>
                                             <td>
                                                 <!-- Bước 19: ViewCustomerFrm.jsp gọi ViewHistoryBillFrm.jsp -->
-                                                <a href="/ViewHistoryBillFrm.jsp?customerId=${stat.id}&customerName=${stat.fullname}&startDate=${param.startDate}&endDate=${param.endDate}" 
+                                                <a href="${pageContext.request.contextPath}/history-bill?customerId=${stat.id}&customerName=${stat.fullname}&startDate=${param.startDate}&endDate=${param.endDate}" 
                                                    class="bill-btn" style="display: inline-block; text-decoration: none;">📋 Xem hóa đơn</a>
                                             </td>
                                         </tr>
@@ -312,7 +312,7 @@
         
         <div class="center">
             <div class="button-row">
-                <a href="/ViewStatisticsFrm.jsp" class="back-btn">⬅️ Quay lại chọn loại thống kê</a>
+                <a href="${pageContext.request.contextPath}/ViewStatisticsFrm.jsp" class="back-btn">⬅️ Quay lại chọn loại thống kê</a>
             </div>
         </div>
     </div>

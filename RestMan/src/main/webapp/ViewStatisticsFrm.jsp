@@ -158,7 +158,7 @@
         </div>
         
         <div class="menu-grid">
-            <a href="/ViewCustomerFrm.jsp" class="menu-card customer-card">
+            <a href="${pageContext.request.contextPath}/ViewCustomerFrm.jsp" class="menu-card customer-card">
                 <span class="icon">👥</span>
                 <div class="title">Thống kê khách hàng</div>
                 <div class="description">Xem doanh thu theo từng khách hàng trong khoảng thời gian</div>
@@ -170,7 +170,7 @@
                 <div class="description">Xem doanh thu và số lượng bán của từng món ăn</div>
             </a>
             
-            <a href="/manager" class="menu-card back-card">
+            <a href="${pageContext.request.contextPath}/admin" class="menu-card back-card">
                 <span class="icon">⬅️</span>
                 <div class="title">Quay lại</div>
                 <div class="description">Trở về trang quản lý chính</div>

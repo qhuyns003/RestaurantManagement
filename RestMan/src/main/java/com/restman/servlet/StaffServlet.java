@@ -28,7 +28,7 @@ public class StaffServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("staff", staff);
             String encodedName = java.net.URLEncoder.encode(staff.getFullname(), "UTF-8");
-            resp.sendRedirect("/manager?staffName=" + encodedName);
+            resp.sendRedirect(req.getContextPath() + "/admin?staffName=" + encodedName);
         } else {
             req.setAttribute("error", "Sai tên đăng nhập hoặc mật khẩu!");
             req.getRequestDispatcher("/LoginFrm.jsp").forward(req, resp);

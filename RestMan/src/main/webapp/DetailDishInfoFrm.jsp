@@ -151,12 +151,14 @@
         
         <div class="center">
             <div class="button-row">
-                <a href="/SearchDishesFrm.jsp" class="back-btn">⬅️ Quay lại tìm kiếm</a>
+                <a href="${pageContext.request.contextPath}/dish" class="back-btn">⬅️ Quay lại tìm kiếm</a>
             </div>
         </div>
     </div>
     
     <script>
+        const contextPath = '${pageContext.request.contextPath}';
+        
         function loadDishDetail() {
             const urlParams = new URLSearchParams(window.location.search);
             const dishId = urlParams.get('dishId');
@@ -167,7 +169,7 @@
                 return;
             }
             
-            fetch('/dish?action=get-detail-json&dishId=' + dishId)
+            fetch(contextPath + '/dish?action=get-detail-json&dishId=' + dishId)
                 .then(response => response.json())
                 .then(dish => {
                     if (dish && dish.id) {

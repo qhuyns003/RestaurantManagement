@@ -112,7 +112,7 @@
 <body>
     <div class="login-container">
         <div class="login-title">🔐 Đăng nhập nhân viên</div>
-        <form action="/staff-login" method="post">
+        <form action="${pageContext.request.contextPath}/staff-login" method="post">
             <div class="form-group">
                 <label for="username">👤 Tên đăng nhập:</label>
                 <input type="text" id="username" name="username" required />

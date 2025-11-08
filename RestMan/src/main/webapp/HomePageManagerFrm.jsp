@@ -184,7 +184,7 @@
 
             
             <%-- Bước 2: HomePageManagerFrm.jsp gọi ViewStatisticsFrm.jsp --%>
-            <a href="/ViewStatisticsFrm.jsp" class="menu-card stats-card">
+            <a href="${pageContext.request.contextPath}/ViewStatisticsFrm.jsp" class="menu-card stats-card">
                 <span class="icon">📊</span>
                 <div class="title">Thống kê khách hàng</div>
                 <div class="description">Xem báo cáo doanh thu theo khách hàng</div>
@@ -202,7 +202,7 @@
                 <div class="description">Cập nhật thông tin các món ăn</div>
             </a>
 
-                <a href="/" class="menu-card logout-card">
+                <a href="${pageContext.request.contextPath}/home" class="menu-card logout-card">
                     <span class="icon">🏠</span>
                     <div class="title">Đăng xuất</div>
                     <div class="description">Quay lại giao diện khách hàng</div>

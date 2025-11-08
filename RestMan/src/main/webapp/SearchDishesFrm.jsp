@@ -197,7 +197,7 @@
     
     <div class="container">
         <div class="search-card">
-            <form action="/dish" method="get" class="search-form">
+            <form action="${pageContext.request.contextPath}/dish" method="get" class="search-form">
                 <div class="form-group">
                     <label for="dishName">🍜 Tên món ăn:</label>
                     <input id="dishName" name="dishName" value="${searchKey}" placeholder="Nhập tên món ăn cần tìm..." />
@@ -217,7 +217,7 @@
                             <div class="dish-item">
                                 <span class="dish-name">🍽️ ${d.name}</span>
                                 <%-- Bước 16: SearchDishesFrm.jsp gọi DetailDishInfoFrm.jsp --%>
-                                <a href="/DetailDishInfoFrm.jsp?dishId=${d.id}" class="detail-btn">👁️ Xem chi tiết</a>
+                                <a href="${pageContext.request.contextPath}/DetailDishInfoFrm.jsp?dishId=${d.id}" class="detail-btn">👁️ Xem chi tiết</a>
                             </div>
                         </c:forEach>
                     </c:when>
@@ -232,7 +232,7 @@
         
         <div class="center">
             <div class="button-row">
-                <a href="/" class="back-btn">⬅️ Quay lại trang chủ</a>
+                <a href="${pageContext.request.contextPath}/home" class="back-btn">⬅️ Quay lại trang chủ</a>
             </div>
         </div>
     </div>
