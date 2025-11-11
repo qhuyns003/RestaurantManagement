@@ -295,10 +295,7 @@
                             tableHTML += '<td class="total-amount">' + formattedTotal + '₫</td>';
                             tableHTML += '<td>' + tableName + '</td>';
                             tableHTML += '<td>';
-                            tableHTML += '<form action="' + contextPath + '/bill-detail" method="get" style="margin:0;">';
-                            tableHTML += '<input type="hidden" name="billId" value="' + bill.id + '" />';
-                            tableHTML += '<button type="submit" class="detail-btn">🔍 Xem chi tiết</button>';
-                            tableHTML += '</form>';
+                            tableHTML += '<a href="' + contextPath + '/ViewBillFrm.jsp?billId=' + bill.id + '" class="detail-btn" style="text-decoration: none; display: inline-block;">🔍 Xem chi tiết</a>';
                             tableHTML += '</td>';
                             tableHTML += '</tr>';
                         });

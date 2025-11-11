@@ -203,80 +203,147 @@
     </div>
     
     <div class="container">
-        <c:choose>
-            <c:when test="${empty bill}">
-                <div class="no-data">
-                    ❌ Không tìm thấy thông tin hóa đơn
+        <div id="billInfoContainer">
+            <div class="no-data">⏳ Đang tải thông tin hóa đơn...</div>
+        </div>
+        
+        <div id="billDetailsContainer" style="display: none;">
+            <h2 class="section-title">🍜 Danh sách món ăn</h2>
+            <div class="items-card">
+                <div id="dishListContainer">
+                    <div class="no-data">⏳ Đang tải danh sách món ăn...</div>
                 </div>
-            </c:when>
-            <c:otherwise>
-                <div class="bill-info">
-                    <table>
-                        <tr>
-                            <td>📄 Mã hóa đơn:</td>
-                            <td>${bill.code}</td>
-                            <td>📅 Ngày tạo:</td>
-                            <td>${bill.formattedDateTime}</td>
-                        </tr>
-                        <tr>
-                            <td>👤 Khách hàng:</td>
-                            <td>${bill.customer.fullname}</td>
-                            <td>🪑 Bàn:</td>
-                            <td>${bill.table.name}</td>
-                        </tr>
-                    </table>
+            </div>
+            
+            <h2 class="section-title">🍱 Danh sách combo</h2>
+            <div class="items-card">
+                <div id="comboListContainer">
+                    <div class="no-data">⏳ Đang tải danh sách combo...</div>
                 </div>
-                
-                <h2 class="section-title">🍜 Danh sách món ăn</h2>
-                <div class="items-card">
-                    <%-- Bước 41-49: ViewBillFrm.jsp gọi DetailDishBillServlet --%>
-                    <div id="dishListContainer">
-                        <div class="no-data">⏳ Đang tải danh sách món ăn...</div>
-                    </div>
+            </div>
+            
+            <div class="total-section">
+                <div class="total" id="subtotalAmount">💵 Tạm tính: <span id="subtotalValue">0</span>₫</div>
+                <div class="total" id="discountAmount">🎟️ Giảm giá: <span id="discountValue">0</span>₫</div>
+                <div class="total" id="totalAmount">💰 Tổng tiền: <span id="totalValue">0</span>₫</div>
+            </div>
+            
+            <div class="center">
+                <div class="button-row">
+                    <a href="#" id="backButton" class="back-btn">⬅️ Quay lại danh sách hóa đơn</a>
                 </div>
-                
-                <h2 class="section-title">🍱 Danh sách combo</h2>
-                <div class="items-card">
-                    <%-- Bước 50-58: ViewBillFrm.jsp gọi DetailComboBillServlet --%>
-                    <div id="comboListContainer">
-                        <div class="no-data">⏳ Đang tải danh sách combo...</div>
-                    </div>
-                </div>
-                
-                <div class="total-section">
-                    <div class="total" id="subtotalAmount">💵 Tạm tính: <span id="subtotalValue">0</span>₫</div>
-                    <div class="total" id="discountAmount">🎟️ Giảm giá: <span id="discountValue"><fmt:formatNumber value="${bill.discount}" pattern="#,###" /></span>₫</div>
-                    <div class="total" id="totalAmount">💰 Tổng tiền: <span id="totalValue">0</span>₫</div>
-                </div>
-                
-                <div class="center">
-                    <div class="button-row">
-                        <a href="/ViewHistoryBillFrm.jsp?customerId=${bill.customer.id}&customerName=${bill.customer.fullname}" class="back-btn">⬅️ Quay lại danh sách hóa đơn</a>
-                    </div>
-                </div>
-            </c:otherwise>
-        </c:choose>
+            </div>
+        </div>
     </div>
     
     <script>
-        // Biến global để lưu tổng tiền
+        const contextPath = '${pageContext.request.contextPath}';
+
+        let billData = null;
         let dishTotal = 0;
         let comboTotal = 0;
-        const discountAmount = <c:out value="${bill.discount}" default="0"/>;
-        
-        // Hàm cập nhật tổng tiền
+        let discountAmount = 0;
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function formatDateTime(dateTimeStr) {
+            if (!dateTimeStr) return '';
+            try {
+                let fullDateTimeStr = dateTimeStr;
+                if (dateTimeStr.length === 16) { 
+                    fullDateTimeStr = dateTimeStr + ':00';
+                }
+                
+                const date = new Date(fullDateTimeStr);
+                
+                if (isNaN(date.getTime())) {
+                    return dateTimeStr;
+                }
+                
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return day + '/' + month + '/' + year + ' ' + hours + ':' + minutes;
+            } catch (e) {
+                return dateTimeStr;
+            }
+        }
+
         function updateTotalAmount() {
             const subtotal = dishTotal + comboTotal;
             const total = subtotal - discountAmount;
             document.getElementById('subtotalValue').textContent = formatNumber(subtotal);
+            document.getElementById('discountValue').textContent = formatNumber(discountAmount);
             document.getElementById('totalValue').textContent = formatNumber(total);
         }
-        
-        function loadDishList() {
-            const billId = '<c:out value="${bill.id}"/>';
+
+        function loadBillInfo(billId) {
+            console.log('Loading bill info for billId:', billId);
+            
+            fetch(contextPath + '/bill-detail?billId=' + billId, {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => {
+                    console.log('Bill response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(bill => {
+                    console.log('Bill data:', bill);
+                    billData = bill;
+                    discountAmount = bill.discount || 0;
+                    
+                    // Hiển thị thông tin hóa đơn
+                    let billInfoHTML = '<div class="bill-info"><table>';
+                    billInfoHTML += '<tr>';
+                    billInfoHTML += '<td>📄 Mã hóa đơn:</td>';
+                    billInfoHTML += '<td>' + (bill.code || bill.id) + '</td>';
+                    billInfoHTML += '<td>📅 Ngày tạo:</td>';
+                    billInfoHTML += '<td>' + formatDateTime(bill.dateTime) + '</td>';
+                    billInfoHTML += '</tr>';
+                    billInfoHTML += '<tr>';
+                    billInfoHTML += '<td>👤 Khách hàng:</td>';
+                    billInfoHTML += '<td>' + (bill.customer ? bill.customer.fullname : 'N/A') + '</td>';
+                    billInfoHTML += '<td>🪑 Bàn:</td>';
+                    billInfoHTML += '<td>' + (bill.table ? (bill.table.name || 'Bàn ' + bill.table.number) : 'N/A') + '</td>';
+                    billInfoHTML += '</tr>';
+                    billInfoHTML += '</table></div>';
+                    
+                    document.getElementById('billInfoContainer').innerHTML = billInfoHTML;
+                    document.getElementById('billDetailsContainer').style.display = 'block';
+
+                    if (bill.customer && bill.customer.id) {
+                        const backBtn = document.getElementById('backButton');
+                        backBtn.href = contextPath + '/ViewHistoryBillFrm.jsp?customerId=' + bill.customer.id + 
+                                      '&customerName=' + encodeURIComponent(bill.customer.fullname || '');
+                    }
+
+                    loadDishList(billId);
+                    loadComboList(billId);
+                })
+                .catch(error => {
+                    console.error('Error loading bill info:', error);
+                    document.getElementById('billInfoContainer').innerHTML = 
+                        '<div class="no-data">❌ Lỗi khi tải thông tin hóa đơn: ' + error.message + '</div>';
+                });
+        }
+
+        function loadDishList(billId) {
             console.log('Loading dishes for billId:', billId);
             
-            fetch('/detail-dish-bill?billId=' + billId)
+            fetch(contextPath + '/detail-dish-bill?billId=' + billId, {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
                 .then(response => {
                     console.log('Dish response status:', response.status);
                     if (!response.ok) {
@@ -298,13 +365,13 @@
                         dishList.forEach((dish, index) => {
                             const subtotal = dish.quantity * dish.price;
                             dishTotal += subtotal; 
-                            html += `<tr>
-                                <td>\${index + 1}</td>
-                                <td>\${dish.dish.name}</td>
-                                <td>\${dish.quantity}</td>
-                                <td class="price">\${formatNumber(dish.price)}₫</td>
-                                <td class="price">\${formatNumber(subtotal)}₫</td>
-                            </tr>`;
+                            html += '<tr>';
+                            html += '<td>' + (index + 1) + '</td>';
+                            html += '<td>' + (dish.dish ? dish.dish.name : 'N/A') + '</td>';
+                            html += '<td>' + dish.quantity + '</td>';
+                            html += '<td class="price">' + formatNumber(dish.price) + '₫</td>';
+                            html += '<td class="price">' + formatNumber(subtotal) + '₫</td>';
+                            html += '</tr>';
                         });
                         html += '</tbody></table></div>';
                         container.innerHTML = html;
@@ -317,12 +384,15 @@
                         '<div class="no-data">❌ Lỗi: ' + error.message + '</div>';
                 });
         }
-        
-        function loadComboList() {
-            const billId = '<c:out value="${bill.id}"/>';
+
+        function loadComboList(billId) {
             console.log('Loading combos for billId:', billId);
             
-            fetch('/detail-combo-bill?billId=' + billId)
+            fetch(contextPath + '/detail-combo-bill?billId=' + billId, {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
                 .then(response => {
                     console.log('Combo response status:', response.status);
                     if (!response.ok) {
@@ -344,13 +414,13 @@
                         comboList.forEach((combo, index) => {
                             const subtotal = combo.quantity * combo.price;
                             comboTotal += subtotal; 
-                            html += `<tr>
-                                <td>\${index + 1}</td>
-                                <td>\${combo.combo.name}</td>
-                                <td>\${combo.quantity}</td>
-                                <td class="price">\${formatNumber(combo.price)}₫</td>
-                                <td class="price">\${formatNumber(subtotal)}₫</td>
-                            </tr>`;
+                            html += '<tr>';
+                            html += '<td>' + (index + 1) + '</td>';
+                            html += '<td>' + (combo.combo ? combo.combo.name : 'N/A') + '</td>';
+                            html += '<td>' + combo.quantity + '</td>';
+                            html += '<td class="price">' + formatNumber(combo.price) + '₫</td>';
+                            html += '<td class="price">' + formatNumber(subtotal) + '₫</td>';
+                            html += '</tr>';
                         });
                         html += '</tbody></table></div>';
                         container.innerHTML = html;
@@ -363,14 +433,17 @@
                         '<div class="no-data">❌ Lỗi: ' + error.message + '</div>';
                 });
         }
-        
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        }
-        
+
         window.addEventListener('DOMContentLoaded', function() {
-            loadDishList();
-            loadComboList();
+            const urlParams = new URLSearchParams(window.location.search);
+            const billId = urlParams.get('billId');
+            
+            if (billId) {
+                loadBillInfo(billId);
+            } else {
+                document.getElementById('billInfoContainer').innerHTML = 
+                    '<div class="no-data">❌ Không tìm thấy mã hóa đơn trong URL</div>';
+            }
         });
     </script>
 </body>
