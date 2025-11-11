@@ -144,7 +144,6 @@
     </div>
     
     <div class="container">
-        <%-- Bước 17-26: DetailDishInfoFrm.jsp gọi DishServlet --%>
         <div id="dishContainer">
             <div class="no-data">⏳ Đang tải thông tin món ăn...</div>
         </div>

@@ -136,8 +136,7 @@
         </div>
         
         <div class="menu-grid">
-            <%-- Bước 2: HomePageFrm.jsp gọi SearchDishesFrm.jsp --%>
-            <a href="${pageContext.request.contextPath}/dish" class="menu-card">
+            <a href="${pageContext.request.contextPath}/SearchDishesFrm.jsp" class="menu-card">
                 <span class="icon">🔍</span>
                 <div class="title">Tìm kiếm món ăn</div>
                 <div class="description">Khám phá thực đơn phong phú với nhiều món ngon</div>
