@@ -279,8 +279,7 @@
                                                 <fmt:formatNumber value="${stat.totalRevenue}" pattern="#,###" />₫
                                             </td>
                                             <td>
-                                                <!-- Bước 19: ViewCustomerFrm.jsp gọi ViewHistoryBillFrm.jsp -->
-                                                <a href="${pageContext.request.contextPath}/history-bill?customerId=${stat.id}&customerName=${stat.fullname}&startDate=${param.startDate}&endDate=${param.endDate}" 
+                                                <a href="${pageContext.request.contextPath}/ViewHistoryBillFrm.jsp?customerId=${stat.id}&customerName=${stat.fullname}&startDate=${param.startDate}&endDate=${param.endDate}"
                                                    class="bill-btn" style="display: inline-block; text-decoration: none;">📋 Xem hóa đơn</a>
                                             </td>
                                         </tr>

@@ -41,7 +41,6 @@ public class DishDAO extends DAO {
         return result;
     }
 
-    // Get full detail by id
     public Dish getDetailDishInfo(String dishId) {
         if (dishId == null) return null;
         String sql = "SELECT id, name, description, price FROM dish WHERE id = ?";
